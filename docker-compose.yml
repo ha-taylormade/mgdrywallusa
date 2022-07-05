@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mgdrywall-next:
+    build:
+      context: .
+    command: yarn run dev
+    container_name: mgdrywall-next
+    environment: # new
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 3001:3000
+    stdin_open: true
+    volumes: # new
+      - .:/usr/src/app
+  
+  amplify:
+    build:
+      context: .
+      dockerfile: amplify.Dockerfile
+    container_name: amplify-cli
+    volumes: # new
+        - .:/usr/src/app
